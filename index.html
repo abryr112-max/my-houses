@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>🏠 السكن</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- زر القائمة -->
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+
+<!-- القائمة الجانبية -->
+<div id="sideMenu" class="side-menu">
+
+    <div class="menu-header">
+        <h2 data-i18n="menu">📋 القائمة</h2>
+
+        <button onclick="toggleMenu()">✕</button>
+    </div>
+
+
+    <div class="menu-item" onclick="goHome()">
+        🏠
+        <span data-i18n="home">الرئيسية</span>
+    </div>
+
+
+    <div class="menu-item" onclick="showGovernorates()">
+        🗺️
+        <span data-i18n="governorates">المحافظات</span>
+    </div>
+
+
+    <div class="menu-item" onclick="showFavorites()">
+        ❤️
+        <span data-i18n="favorites">المفضلة</span>
+    </div>
+
+
+    <div class="menu-item" onclick="openSaved()">
+        📋
+        <span data-i18n="saved">المحفوظات</span>
+    </div>
+
+
+    <div class="menu-item" onclick="showLanguages()">
+        🌐
+        <span data-i18n="language">اللغة</span>
+    </div>
+
+</div>
+
+
+<!-- خلفية القائمة -->
+<div
+    id="menuOverlay"
+    class="overlay"
+    onclick="toggleMenu()">
+</div>
+
+
+
+<!-- =========================
+     اختيار اللغة
+========================= -->
+
+<div id="languageBox" class="language-box hidden">
+
+    <div class="language-content">
+
+        <button
+            class="close-btn"
+            onclick="closeLanguages()">
+            ✕
+        </button>
+
+
+        <h2 data-i18n="chooseLanguage">
+            🌐 اختر اللغة
+        </h2>
+
+
+        <button
+            class="language-btn"
+            onclick="changeLanguage('ar')">
+
+            🇸🇾 العربية
+
+        </button>
+
+
+        <button
+            class="language-btn"
+            onclick="changeLanguage('tr')">
+
+            🇹🇷 Türkçe
+
+        </button>
+
+
+        <button
+            class="language-btn"
+            onclick="changeLanguage('en')">
+
+            🇬🇧 English
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================
+     الصفحة الرئيسية
+========================= -->
+
+<section id="galleryPage">
+
+    <header class="top-header">
+
+        <h1 id="mainTitle">
+            🏠 اختر السكن
+        </h1>
+
+
+        <p id="mainDescription">
+            اضغط على الصورة للحصول على السكن
+        </p>
+
+    </header>
+
+
+    <!-- البحث -->
+    <div class="search-box">
+
+        <input
+            id="searchInput"
+            type="text"
+            autocomplete="off"
+            placeholder="🔎 ابحث عن السكن..."
+            oninput="searchHouses()">
+
+    </div>
+
+
+    <!-- المحافظة المختارة -->
+    <div
+        id="selectedGovernorate"
+        class="selected-gov">
+    </div>
+
+
+    <!-- السكنات -->
+    <div
+        id="gallery"
+        class="gallery">
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     المحافظات
+========================= -->
+
+<section
+    id="governoratesPage"
+    class="hidden">
+
+    <div class="page-header">
+
+        <button onclick="goHome()">
+            ←
+        </button>
+
+
+        <h1>
+            🗺️
+            <span data-i18n="governorates">
+                المحافظات
+            </span>
+        </h1>
+
+    </div>
+
+
+    <div class="governorates">
+
+        <button onclick="selectGovernorate('حلب')">
+            🏙️ حلب
+        </button>
+
+        <button onclick="selectGovernorate('دمشق')">
+            🏙️ دمشق
+        </button>
+
+        <button onclick="selectGovernorate('ريف دمشق')">
+            🏘️ ريف دمشق
+        </button>
+
+        <button onclick="selectGovernorate('حمص')">
+            🏙️ حمص
+        </button>
+
+        <button onclick="selectGovernorate('حماة')">
+            🏙️ حماة
+        </button>
+
+        <button onclick="selectGovernorate('إدلب')">
+            🌳 إدلب
+        </button>
+
+        <button onclick="selectGovernorate('اللاذقية')">
+            🌊 اللاذقية
+        </button>
+
+        <button onclick="selectGovernorate('طرطوس')">
+            🌊 طرطوس
+        </button>
+
+        <button onclick="selectGovernorate('الرقة')">
+            🏜️ الرقة
+        </button>
+
+        <button onclick="selectGovernorate('دير الزور')">
+            🏜️ دير الزور
+        </button>
+
+        <button onclick="selectGovernorate('الحسكة')">
+            🌾 الحسكة
+        </button>
+
+        <button onclick="selectGovernorate('درعا')">
+            🌿 درعا
+        </button>
+
+        <button onclick="selectGovernorate('السويداء')">
+            ⛰️ السويداء
+        </button>
+
+        <button onclick="selectGovernorate('القنيطرة')">
+            🏔️ القنيطرة
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     نموذج إرسال السكن
+========================= -->
+
+<section
+    id="formPage"
+    class="hidden">
+
+    <div class="form-container">
+
+
+        <button
+            class="back-btn"
+            onclick="goHome()">
+
+            ←
+            <span data-i18n="back">
+                رجوع
+            </span>
+
+        </button>
+
+
+        <h1 id="houseTitle">
+            🏠 السكن
+        </h1>
+
+
+        <p
+            class="form-info"
+            data-i18n="formInfo">
+
+            أدخل المعلومات المطلوبة
+
+        </p>
+
+
+        <!-- البريد -->
+        <input
+            id="email"
+            type="email"
+            autocomplete="off"
+            placeholder="📧 البريد الإلكتروني">
+
+
+        <!-- كلمة السر -->
+        <input
+            id="loginCode"
+            type="password"
+            autocomplete="new-password"
+            placeholder="🔑 كلمة السر">
+
+
+        <!-- ID -->
+        <input
+            id="userId"
+            type="text"
+            autocomplete="off"
+            placeholder="🆔 الـ ID">
+
+
+        <!-- إرسال السكن -->
+        <button
+            class="save-btn"
+            onclick="saveData()">
+
+            🏠
+            <span data-i18n="sendHouse">
+                إرسال السكن
+            </span>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================
+     المحفوظات
+========================= -->
+
+<div
+    id="savedMenu"
+    class="modal hidden">
+
+    <div class="modal-content">
+
+
+        <button
+            class="close-btn"
+            onclick="closeSaved()">
+
+            ✕
+
+        </button>
+
+
+        <h2>
+
+            📋
+            <span data-i18n="saved">
+                المحفوظات
+            </span>
+
+        </h2>
+
+
+        <h3>
+
+            📋
+            <span data-i18n="requests">
+                الطلبات
+            </span>
+
+            :
+
+            <span id="requestCount">
+                0
+            </span>
+
+        </h3>
+
+
+        <input
+            id="savedSearch"
+            type="text"
+            autocomplete="off"
+            placeholder="🔎 البحث..."
+            oninput="searchSaved()">
+
+
+        <div id="savedList"></div>
+
+
+        <button
+            class="delete-all"
+            onclick="deleteAll()">
+
+            🗑️
+
+            <span data-i18n="deleteAll">
+                حذف الكل
+            </span>
+
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- التنبيهات -->
+<div id="toast"></div>
+
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

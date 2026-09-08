@@ -1,0 +1,996 @@
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+
+    color: white;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #071a35,
+            #123c68,
+            #071a35
+        );
+}
+
+
+/* =========================
+   زر القائمة
+========================= */
+
+.menu-btn {
+
+    position: fixed;
+
+    top: 15px;
+    left: 15px;
+
+    z-index: 1000;
+
+    width: 50px;
+    height: 50px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.15);
+
+    color: white;
+
+    font-size: 27px;
+
+    cursor: pointer;
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+
+/* =========================
+   القائمة
+========================= */
+
+.side-menu {
+
+    position: fixed;
+
+    top: 0;
+    left: -310px;
+
+    width: 290px;
+    height: 100vh;
+
+    z-index: 2000;
+
+    padding: 20px;
+
+    background:
+        #0b2342;
+
+    box-shadow:
+        5px 0 30px
+        rgba(0,0,0,0.4);
+
+    transition:
+        left 0.35s ease;
+
+}
+
+
+.side-menu.open {
+    left: 0;
+}
+
+
+.menu-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    padding-bottom: 15px;
+
+    border-bottom:
+        1px solid
+        rgba(255,255,255,0.2);
+
+}
+
+
+.menu-header h2 {
+    margin: 0;
+}
+
+
+.menu-header button {
+
+    border: none;
+
+    background: none;
+
+    color: white;
+
+    font-size: 23px;
+
+    cursor: pointer;
+
+}
+
+
+.menu-item {
+
+    margin-top: 15px;
+
+    padding: 17px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition:
+        0.2s;
+
+}
+
+
+.menu-item:hover {
+
+    background:
+        rgba(255,255,255,0.17);
+
+    transform:
+        translateX(5px);
+
+}
+
+
+/* =========================
+   الخلفية
+========================= */
+
+.overlay {
+
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1500;
+
+    background:
+        rgba(0,0,0,0.65);
+
+}
+
+
+.overlay.show {
+    display: block;
+}
+
+
+/* =========================
+   العنوان
+========================= */
+
+.top-header {
+
+    text-align: center;
+
+    padding:
+        35px 20px 15px;
+
+}
+
+
+.top-header h1 {
+
+    margin: 0;
+
+    font-size: 30px;
+
+}
+
+
+.top-header p {
+
+    opacity: 0.75;
+
+}
+
+
+/* =========================
+   البحث
+========================= */
+
+.search-box {
+
+    max-width: 600px;
+
+    margin: auto;
+
+    padding:
+        10px 15px 20px;
+
+}
+
+
+.search-box input,
+#savedSearch {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.12);
+
+    color: white;
+
+    font-size: 16px;
+
+}
+
+
+input::placeholder {
+
+    color:
+        rgba(255,255,255,0.65);
+
+}
+
+
+/* =========================
+   المحافظة
+========================= */
+
+.selected-gov {
+
+    text-align: center;
+
+    margin:
+        0 15px 10px;
+
+    padding: 10px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+}
+
+
+/* =========================
+   السكنات
+========================= */
+
+.gallery {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
+    max-width: 900px;
+
+    margin: auto;
+
+    padding: 15px;
+
+}
+
+
+.house-card {
+
+    position: relative;
+
+    padding: 7px;
+
+    border-radius: 18px;
+
+    background:
+        rgba(255,255,255,0.10);
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        0.25s;
+
+}
+
+
+.house-card:hover {
+
+    transform:
+        translateY(-6px);
+
+    background:
+        rgba(255,255,255,0.17);
+
+}
+
+
+.house-card:active {
+
+    transform:
+        scale(0.95);
+
+}
+
+
+.house-card img {
+
+    display: block;
+
+    width: 100%;
+
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+
+    border-radius: 13px;
+
+}
+
+
+.house-card h3 {
+
+    margin:
+        8px 3px 2px;
+
+    font-size: 16px;
+
+}
+
+
+.house-card p {
+
+    margin: 3px;
+
+    font-size: 12px;
+
+    opacity: 0.7;
+
+}
+
+
+/* =========================
+   القلب
+========================= */
+
+.favorite-btn {
+
+    position: absolute;
+
+    top: 12px;
+    left: 12px;
+
+    width: 36px;
+    height: 36px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(0,0,0,0.65);
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    z-index: 10;
+
+}
+
+
+/* =========================
+   إخفاء
+========================= */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* =========================
+   المحافظات
+========================= */
+
+.page-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    padding:
+        25px 20px;
+
+}
+
+
+.page-header button,
+.back-btn {
+
+    border: none;
+
+    padding:
+        12px 18px;
+
+    border-radius: 12px;
+
+    background:
+        rgba(255,255,255,0.12);
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+}
+
+
+.governorates {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    max-width: 700px;
+
+    margin: auto;
+
+    padding: 15px;
+
+}
+
+
+.governorates button {
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    background:
+        rgba(255,255,255,0.10);
+
+    color: white;
+
+    font-size: 17px;
+
+    cursor: pointer;
+
+    transition:
+        0.2s;
+
+}
+
+
+.governorates button:hover {
+
+    transform:
+        scale(1.03);
+
+    background:
+        rgba(255,255,255,0.18);
+
+}
+
+
+/* =========================
+   النموذج
+========================= */
+
+.form-container {
+
+    max-width: 550px;
+
+    margin: auto;
+
+    padding:
+        25px 18px;
+
+}
+
+
+.form-container h1 {
+
+    text-align: center;
+
+    margin-top: 35px;
+
+}
+
+
+.form-info {
+
+    text-align: center;
+
+    opacity: 0.7;
+
+    line-height: 1.7;
+
+}
+
+
+.form-container input {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 17px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 14px;
+
+    background:
+        rgba(255,255,255,0.12);
+
+    color: white;
+
+    font-size: 16px;
+
+}
+
+
+.form-container input:focus {
+
+    background:
+        rgba(255,255,255,0.18);
+
+    box-shadow:
+        0 0 0 2px
+        rgba(255,255,255,0.15);
+
+}
+
+
+/* =========================
+   زر إرسال السكن
+========================= */
+
+.save-btn {
+
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background:
+        #20c997;
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition:
+        0.2s;
+
+}
+
+
+.save-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    background:
+        #18b589;
+
+}
+
+
+.save-btn:active {
+
+    transform:
+        scale(0.97);
+
+}
+
+
+/* =========================
+   المحفوظات
+========================= */
+
+.modal {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 3000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 15px;
+
+    background:
+        rgba(0,0,0,0.75);
+
+}
+
+
+.modal-content {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 550px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding: 22px;
+
+    border-radius: 22px;
+
+    background:
+        #0c2545;
+
+}
+
+
+.close-btn {
+
+    position: absolute;
+
+    top: 12px;
+    left: 12px;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,255,255,0.1);
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================
+   البيانات المحفوظة
+========================= */
+
+.saved-item {
+
+    margin-top: 12px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.08);
+
+}
+
+
+.saved-item h3 {
+    margin-top: 0;
+}
+
+
+.delete-btn {
+
+    padding:
+        9px 12px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        #dc3545;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+.delete-all {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background:
+        #dc3545;
+
+    color: white;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================
+   اللغات
+========================= */
+
+.language-box {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 4000;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        rgba(0,0,0,0.75);
+
+}
+
+
+.language-content {
+
+    position: relative;
+
+    width: 100%;
+
+    max-width: 400px;
+
+    padding: 25px;
+
+    border-radius: 22px;
+
+    background:
+        #0c2545;
+
+    text-align: center;
+
+}
+
+
+.language-content h2 {
+
+    margin-top: 5px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.language-btn {
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 17px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.10);
+
+    color: white;
+
+    font-size: 18px;
+
+    cursor: pointer;
+
+    transition:
+        0.2s;
+
+}
+
+
+.language-btn:hover {
+
+    background:
+        rgba(255,255,255,0.20);
+
+    transform:
+        scale(1.02);
+
+}
+
+
+/* =========================
+   التنبيهات
+========================= */
+
+#toast {
+
+    position: fixed;
+
+    bottom: 25px;
+
+    left: 50%;
+
+    z-index: 5000;
+
+    padding:
+        13px 20px;
+
+    border-radius: 30px;
+
+    background:
+        #111;
+
+    color: white;
+
+    opacity: 0;
+
+    transform:
+        translateX(-50%)
+        translateY(100px);
+
+    transition:
+        0.3s;
+
+}
+
+
+#toast.show {
+
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+
+}
+
+
+/* =========================
+   الجوال
+========================= */
+
+@media (max-width: 600px) {
+
+    .gallery {
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 9px;
+
+        padding: 10px;
+
+    }
+
+
+    .house-card {
+
+        padding: 5px;
+
+        border-radius: 13px;
+
+    }
+
+
+    .house-card h3 {
+
+        font-size: 12px;
+
+    }
+
+
+    .house-card p {
+
+        font-size: 9px;
+
+    }
+
+
+    .favorite-btn {
+
+        width: 28px;
+        height: 28px;
+
+        top: 8px;
+        left: 8px;
+
+        font-size: 14px;
+
+    }
+
+
+    .top-header h1 {
+
+        font-size: 25px;
+
+    }
+
+
+    .side-menu {
+
+        width: 280px;
+
+        left: -300px;
+
+    }
+
+}
