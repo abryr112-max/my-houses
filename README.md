@@ -1,2 +1,2 @@
 # my-houses
-Public
+images
